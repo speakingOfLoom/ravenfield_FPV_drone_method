@@ -28,7 +28,7 @@ BepInEx，下载：github.com/BepInEx/BepInEx/releases
 
 【使用步骤】
 1. 进入游戏后，在OPTION-INPUT界面，勾选顶部的Allow Joystick Binds，调整Joystick Deadzone中央死区，正常的航模手柄直接拉到0.01就行
-2. 下拉到直升机相关键位设置(Heli Throttle Up/Down)，绑定各个通道。如果绑定失败的话可能是此航模遥控不支持，可以去下个输入转换器，比如x360ce(下载地址：www.x360ce.com)，把输入映射成xbox手柄(这玩意也能拿去连其它游戏)
+2. 下拉到直升机相关键位设置(Heli Throttle Up/Down)，绑定各个通道。如果绑定失败的话可能是此航模遥控不支持，可以去下个输入转换器，比如x360ce(下载地址： www.x360ce.com )，把输入映射成xbox手柄(这玩意也能拿去连其它游戏)
 3. 去游戏里找个你选择爆改成穿越机的直升机上去开(配置文件中可以自己定义哪些启用穿越机逻辑，把此载具的名字/部分名字输入Names以及RateNames字段即可)
 //默认载具名字包含"FPV"的直升机类载具启用，推荐创意工坊中的FPV kamikaze drones [PG-7v, OG-7v](https://steamcommunity.com/sharedfiles/filedetails/?id=3701263254)//注意，是载具类的那个。这个装了能直接用
 4. 飞一下，如果不舒服可以去配置文件里调那些参数
