@@ -1,6 +1,52 @@
-中文 | [English ↓](#ravenfield-fpv-drone-simulator-plugin)
+English | [中文 ↓](#ravenfield-爆改穿越机模拟器插件)
 
 ---
+
+# Ravenfield FPV Drone Simulator Plugin
+
+## Features
+
+- Lets you take any helicopter-type vehicle in the game (any vehicle whose underlying MonoBehaviour is the `Helicopter` class) and replace its control logic and aerodynamics with FPV drone behaviour.
+
+  // Do NOT use keyboard and mouse — it will feel awful. Use a regular gamepad, or better, a proper RC transmitter. Anyone who flies FPV knows why...
+
+- Currently configurable parameters include:
+  - Rate curves (Actual model)
+  - Thrust-to-weight ratio
+  - Propeller pitch
+  - Throttle response (spool-up/spool-down)
+  - Air drag
+  - Level-flight lift bonus
+  - Ground-effect lift bonus
+
+// The config file is at `Ravenfield\BepInEx\config\local.ravenfield.heliagilitycap.cfg` and is generated automatically on first launch.
+
+## Requirements
+
+- Game: Ravenfield (Steam version, Windows. Untested on iOS.)
+- Prerequisite: BepInEx — download: [github.com/BepInEx/BepInEx/releases](https://github.com/BepInEx/BepInEx/releases)
+
+## Installation
+
+1. Install BepInEx: download it and extract it into your Ravenfield root folder (the folder containing Ravenfield.exe, usually `...\steamapps\common\Ravenfield`). Launch the game once so it generates the `BepInEx\` folder structure.
+2. Download `HeliAgilityCap.dll` from this project and place it in `Ravenfield\BepInEx\plugins\`.
+3. Launch the game — if all went well, the config file will be generated at `Ravenfield\BepInEx\config\local.ravenfield.heliagilitycap.cfg`.
+
+## Usage
+
+1. In-game, go to OPTION → INPUT, tick **Allow Joystick Binds** at the top, and adjust the **Joystick Deadzone**. For a normal RC transmitter, just set it to 0.01.
+2. Scroll down to the helicopter key bindings (**Heli Throttle Up/Down**) and bind each channel. If binding fails, your transmitter may not be supported — you can use an input wrapper such as x360ce (download: [www.x360ce.com](https://www.x360ce.com)) to map your inputs to an Xbox controller. (It works for other games too.)
+3. Find a helicopter in-game that you want to convert into an FPV drone and fly it. (You can choose which vehicles use the FPV logic in the config file — just put the vehicle's full name, or part of it, into the `Names` and `RateNames` fields.)
+
+   // By default, any helicopter-type vehicle whose name contains "FPV" uses the FPV logic. Recommended: the FPV kamikaze drones [PG-7v, OG-7v](https://steamcommunity.com/sharedfiles/filedetails/?id=3701263254)
+
+   // Note that you want the *vehicle* version. Install that and you're good to go.
+
+4. Go fly. If it doesn't feel right, tune the parameters in the config file.
+
+---
+
+[↑ English](#ravenfield-fpv-drone-simulator-plugin)
 
 # Ravenfield 爆改穿越机模拟器插件
 
@@ -47,53 +93,3 @@
 ---
 
 //有个小问题，人机开被你爆改过的直升机貌似会鬼畜炸机。。。。如果有空我会把它改了的
-
----
-
-[↑ 中文](#ravenfield-爆改穿越机模拟器插件)
-
-# Ravenfield FPV Drone Simulator Plugin
-
-## Features
-
-- Lets you take any helicopter-type vehicle in the game (any vehicle whose underlying MonoBehaviour is the `Helicopter` class) and replace its control logic and aerodynamics with FPV drone behaviour.
-
-  // Do NOT use keyboard and mouse — it will feel awful. Use a regular gamepad, or better, a proper RC transmitter. Anyone who flies FPV knows why...
-
-- Currently configurable parameters include:
-  - Rate curves (Actual model)
-  - Thrust-to-weight ratio
-  - Propeller pitch
-  - Throttle response (spool-up/spool-down)
-  - Air drag
-  - Level-flight lift bonus
-  - Ground-effect lift bonus
-
-// The config file is at `Ravenfield\BepInEx\config\local.ravenfield.heliagilitycap.cfg` and is generated automatically on first launch.
-
-## Requirements
-
-- Game: Ravenfield (Steam version, Windows. Untested on iOS.)
-- Prerequisite: BepInEx — download: [github.com/BepInEx/BepInEx/releases](https://github.com/BepInEx/BepInEx/releases)
-
-## Installation
-
-1. Install BepInEx: download it and extract it into your Ravenfield root folder (the folder containing Ravenfield.exe, usually `...\steamapps\common\Ravenfield`). Launch the game once so it generates the `BepInEx\` folder structure.
-2. Download `HeliAgilityCap.dll` from this project and place it in `Ravenfield\BepInEx\plugins\`.
-3. Launch the game — if all went well, the config file will be generated at `Ravenfield\BepInEx\config\local.ravenfield.heliagilitycap.cfg`.
-
-## Usage
-
-1. In-game, go to OPTION → INPUT, tick **Allow Joystick Binds** at the top, and adjust the **Joystick Deadzone**. For a normal RC transmitter, just set it to 0.01.
-2. Scroll down to the helicopter key bindings (**Heli Throttle Up/Down**) and bind each channel. If binding fails, your transmitter may not be supported — you can use an input wrapper such as x360ce (download: [www.x360ce.com](https://www.x360ce.com)) to map your inputs to an Xbox controller. (It works for other games too.)
-3. Find a helicopter in-game that you want to convert into an FPV drone and fly it. (You can choose which vehicles use the FPV logic in the config file — just put the vehicle's full name, or part of it, into the `Names` and `RateNames` fields.)
-
-   // By default, any helicopter-type vehicle whose name contains "FPV" uses the FPV logic. Recommended: the FPV kamikaze drones [PG-7v, OG-7v](https://steamcommunity.com/sharedfiles/filedetails/?id=3701263254)
-
-   // Note that you want the *vehicle* version. Install that and you're good to go.
-
-4. Go fly. If it doesn't feel right, tune the parameters in the config file.
-
----
-
-// Known issue: AI flying your converted helicopters tends to spaz out and crash. I'll fix it when I get around to it.
