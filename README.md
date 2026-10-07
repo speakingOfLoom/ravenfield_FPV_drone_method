@@ -1,4 +1,4 @@
-中文 | [English ↓](#english)
+中文 | [English ↓](#ravenfield-fpv-drone-simulator-plugin)
 
 ---
 
@@ -7,7 +7,9 @@
 ## 功能说明
 
 - 能让你自由选择游戏中任意直升机类载具(底层MonoBehaviour为Helicopter类的载具)，将其操控逻辑及其气动改为穿越机。
-  //不要使用键鼠，玩起来会非常难受。可以使用普通游戏手柄或者最好使用专业航模手柄操控，玩穿越机的都知道为什么....  
+
+  //不要使用键鼠，玩起来会非常难受。可以使用普通手柄或者使用专业航模手柄操控，玩穿越机的都知道为什么....
+
 - 目前，可以自定义的参数主要包括：
   - rate曲线(采用actual模型)
   - 推重比
@@ -16,12 +18,13 @@
   - 空气阻力
   - 平飞升力加成
   - 近地升力加成
+
 //参数文件路径位于 `Ravenfield\BepInEx\config\local.ravenfield.heliagilitycap.cfg`，第一次启动会自动生成
 
 ## 环境要求
 
 - 游戏：Ravenfield（Steam 版，Windows。IOS没试过）
-- 前置：BepInEx，下载：github.com/BepInEx/BepInEx/releases
+- 前置：BepInEx，下载：[github.com/BepInEx/BepInEx/releases](https://github.com/BepInEx/BepInEx/releases)
 
 ## 安装
 
@@ -32,10 +35,13 @@
 ## 使用步骤
 
 1. 进入游戏后，在 OPTION-INPUT 界面，勾选顶部的 **Allow Joystick Binds**，调整 **Joystick Deadzone** 中央死区，正常的航模手柄直接拉到 0.01 就行
-2. 下拉到直升机相关键位设置(**Heli Throttle Up/Down**)，绑定各个通道。如果绑定失败的话可能是此航模遥控不支持，可以去下个输入转换器，比如 x360ce(下载地址：www.x360ce.com)，把输入映射成 xbox 手柄(这玩意也能拿去连其它游戏)
+2. 下拉到直升机相关键位设置(**Heli Throttle Up/Down**)，绑定各个通道。如果绑定失败的话可能是此航模遥控不支持，可以去下个输入转换器，比如 x360ce(下载地址：[www.x360ce.com](https://www.x360ce.com))，把输入映射成 xbox 手柄(这玩意也能拿去连其它游戏)
 3. 去游戏里找个你选择爆改成穿越机的直升机上去开(配置文件中可以自己定义哪些启用穿越机逻辑，把此载具的名字/部分名字输入 `Names` 以及 `RateNames` 字段即可)
+
    //默认载具名字包含"FPV"的直升机类载具启用，推荐创意工坊中的 FPV kamikaze drones [PG-7v, OG-7v](https://steamcommunity.com/sharedfiles/filedetails/?id=3701263254)
+
    //注意，是载具类的那个。这个装了能直接用
+
 4. 飞一下，如果不舒服可以去配置文件里调那些参数
 
 ---
@@ -44,14 +50,16 @@
 
 ---
 
-<a id="english"></a>
+[↑ 中文](#ravenfield-爆改穿越机模拟器插件)
 
 # Ravenfield FPV Drone Simulator Plugin
 
 ## Features
 
 - Lets you take any helicopter-type vehicle in the game (any vehicle whose underlying MonoBehaviour is the `Helicopter` class) and replace its control logic and aerodynamics with FPV drone behaviour.
+
   // Do NOT use keyboard and mouse — it will feel awful. Use a regular gamepad, or better, a proper RC transmitter. Anyone who flies FPV knows why...
+
 - Currently configurable parameters include:
   - Rate curves (Actual model)
   - Thrust-to-weight ratio
@@ -60,12 +68,13 @@
   - Air drag
   - Level-flight lift bonus
   - Ground-effect lift bonus
+
 // The config file is at `Ravenfield\BepInEx\config\local.ravenfield.heliagilitycap.cfg` and is generated automatically on first launch.
 
 ## Requirements
 
 - Game: Ravenfield (Steam version, Windows. Untested on iOS.)
-- Prerequisite: BepInEx — download: github.com/BepInEx/BepInEx/releases
+- Prerequisite: BepInEx — download: [github.com/BepInEx/BepInEx/releases](https://github.com/BepInEx/BepInEx/releases)
 
 ## Installation
 
@@ -76,10 +85,13 @@
 ## Usage
 
 1. In-game, go to OPTION → INPUT, tick **Allow Joystick Binds** at the top, and adjust the **Joystick Deadzone**. For a normal RC transmitter, just set it to 0.01.
-2. Scroll down to the helicopter key bindings (**Heli Throttle Up/Down**) and bind each channel. If binding fails, your transmitter may not be supported — you can use an input wrapper such as x360ce (download: www.x360ce.com) to map your inputs to an Xbox controller. (It works for other games too.)
+2. Scroll down to the helicopter key bindings (**Heli Throttle Up/Down**) and bind each channel. If binding fails, your transmitter may not be supported — you can use an input wrapper such as x360ce (download: [www.x360ce.com](https://www.x360ce.com)) to map your inputs to an Xbox controller. (It works for other games too.)
 3. Find a helicopter in-game that you want to convert into an FPV drone and fly it. (You can choose which vehicles use the FPV logic in the config file — just put the vehicle's full name, or part of it, into the `Names` and `RateNames` fields.)
+
    // By default, any helicopter-type vehicle whose name contains "FPV" uses the FPV logic. Recommended: the FPV kamikaze drones [PG-7v, OG-7v](https://steamcommunity.com/sharedfiles/filedetails/?id=3701263254)
+
    // Note that you want the *vehicle* version. Install that and you're good to go.
+
 4. Go fly. If it doesn't feel right, tune the parameters in the config file.
 
 ---
