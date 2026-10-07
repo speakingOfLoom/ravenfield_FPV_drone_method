@@ -8,10 +8,10 @@ English | [中文 ↓](#ravenfield-爆改穿越机模拟器插件)
 
 - Lets you take any helicopter-type vehicle in the game (any vehicle whose underlying MonoBehaviour is the `Helicopter` class) and replace its control logic and aerodynamics with FPV drone behaviour.
 
-  // Do NOT use keyboard and mouse — it will feel awful. Use a regular gamepad, or better, a proper RC transmitter. Anyone who flies FPV knows why...
+  // Do NOT use keyboard and mouse — it will feel awful(When a real FPV drone hovers, the throttle is often not at 50%. If you control the throttle with a keyboard, you have to keep tapping W or S, which makes it very difficult to maintain a stable hover). Use a regular gamepad, or better, a proper RC transmitter. Anyone who flies FPV knows why...
 
 - Currently configurable parameters include:
-  - Rate curves (Actual model)
+  - Rate curves (betaflight Actual model)
   - Thrust-to-weight ratio
   - Propeller pitch
   - Throttle response (spool-up/spool-down)
@@ -43,7 +43,7 @@ English | [中文 ↓](#ravenfield-爆改穿越机模拟器插件)
    // Note that you want the *vehicle* version. Install that and you're good to go.
 
 4. Go fly. If it doesn't feel right, tune the parameters in the config file.
-
+//The default rate curves, or roll sensitivity parameters, are designed for professional RC transmitters used in model aircraft. For players using gamepads with lower precision, these settings may be difficult to adapt to. You can try modifying the Roll/Yaw/Pitch Rates in the configuration file to 270, 270, 0.1. If you find it hard to control altitude or hover steadily, you can reduce the RotorForce value.
 ---
 
 [↑ English](#ravenfield-fpv-drone-simulator-plugin)
@@ -54,7 +54,7 @@ English | [中文 ↓](#ravenfield-爆改穿越机模拟器插件)
 
 - 能让你自由选择游戏中任意直升机类载具(底层MonoBehaviour为Helicopter类的载具)，将其操控逻辑及其气动改为穿越机。
 
-  //不要使用键鼠，玩起来会非常难受。可以使用普通手柄或者使用专业航模手柄操控，玩穿越机的都知道为什么....
+  //不要使用键鼠，玩起来会非常难受（真实穿越机悬停时油门很多时候并不在50%，你用键盘控制穿越机油门的话要一直点按w或s，这非常难控制悬停）。可以使用普通手柄或者使用专业航模手柄操控，玩穿越机的都知道为什么....
 
 - 目前，可以自定义的参数主要包括：
   - rate曲线(采用actual模型)
@@ -89,7 +89,7 @@ English | [中文 ↓](#ravenfield-爆改穿越机模拟器插件)
    //注意，是载具类的那个。这个装了能直接用
 
 4. 飞一下，如果不舒服可以去配置文件里调那些参数
-
+//默认的Rate curves或者说翻滚灵敏度参数是针对专业航模手柄的，对于精度较低的游戏手柄玩家来说可能难以适应，可以尝试去配置文件中把Roll/Yaw/Pitch Rates改成270,270,0.1。如果觉得难以控制高度/悬停，可以把RotorForce这一项调低
 ---
 
 //有个小问题，人机开被你爆改过的直升机貌似会鬼畜炸机。。。。如果有空我会把它改了的
