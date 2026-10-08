@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace HeliAgilityCap
 {
-    [BepInPlugin("local.ravenfield.heliagilitycap", "Helicopter Agility Cap", "1.8.2")]
+    [BepInPlugin("local.ravenfield.heliagilitycap", "Helicopter Agility Cap", "1.9.0")]
     public class Plugin : BaseUnityPlugin
     {
         internal static ManualLogSource Log;
@@ -28,6 +28,7 @@ namespace HeliAgilityCap
         internal static ConfigEntry<string> RollRates;
         internal static ConfigEntry<string> PitchRates;
         internal static ConfigEntry<string> YawRates;
+        internal static ConfigEntry<string> RateSpinUpTime;
 
         // 定距桨气动（杆量线性映射转速）
         internal static ConfigEntry<string> ThrustRpm;
@@ -53,6 +54,7 @@ namespace HeliAgilityCap
         internal static readonly FloatMapCache LiftMap = new FloatMapCache("AerodynamicLift");
         internal static readonly FloatMapCache GeaMap = new FloatMapCache("GroundEffectAcceleration");
         internal static readonly FloatMapCache DragMap = new FloatMapCache("Drag");
+        internal static readonly FloatMapCache RateSpinUpMap = new FloatMapCache("RateSpinUpTime");
 
         private void Awake()
         {
@@ -89,6 +91,10 @@ namespace HeliAgilityCap
             YawRates = Config.Bind(
                 "General", "YawRates", "270,490,0.0",
                 "偏航轴 Actual 参数，格式同上。");
+
+            RateSpinUpTime = Config.Bind(
+                "General", "RateSpinUpTime", "0.05",
+                "速率响应：从 0 加速到满杆速率所需时间（秒）——打杆起转、松杆刹停都经过这段时间，之后保持（松杆=刹停后定住）。0 = 即时（旧行为）。格式：名称:值,...——只有列出的载具单独设置，其余用默认 0.05，如 \"FPV:0.04,Mi-8:0.08\"。");
 
             ThrustRpm = Config.Bind(
                 "General", "ThrustRpm", "on",
@@ -134,9 +140,10 @@ namespace HeliAgilityCap
             Config.Save();
 
             new Harmony("local.ravenfield.heliagilitycap").PatchAll(typeof(Plugin).Assembly);
-            Log.LogInfo("Helicopter Agility Cap 1.8.2 已加载。");
+            Log.LogInfo("Helicopter Agility Cap 1.9.0 已加载。");
             Log.LogInfo("driverInput 反射: " + (DriverInputAccess.Ref != null ? "OK" : "失败（将使用兜底取值）"));
             Log.LogInfo("RateMode 配置: \"" + RateMode.Value + "\" → " + (RateModeEnabled() ? "启用" : "未启用"));
+            Log.LogInfo("RateSpinUpTime 配置: \"" + RateSpinUpTime.Value + "\"（0=即时）");
             Log.LogInfo("ThrustRpm 配置: \"" + ThrustRpm.Value + "\" → " + (ThrustRpmEnabled() ? "启用" : "未启用"));
             Log.LogInfo("VerticalMode 配置: \"" + VerticalMode.Value + "\" → " + (string.IsNullOrWhiteSpace(VerticalMode.Value) ? "自动（full）" : VerticalMode.Value.Trim()));
         }
@@ -429,6 +436,16 @@ namespace HeliAgilityCap
         // 每个载具只打一次"名单不匹配"日志，便于排查
         private static readonly HashSet<int> NotMatchedLogged = new HashSet<int>();
 
+        // 速率响应状态：每车一个"当前角速度"（机体系，rad/s）
+        private sealed class RateState
+        {
+            public Vector3 omega;
+            public bool initialized;
+        }
+
+        private static readonly ConditionalWeakTable<Helicopter, RateState> RateStates =
+            new ConditionalWeakTable<Helicopter, RateState>();
+
         private static void Postfix(Helicopter __instance)
         {
             if (!Plugin.RateModeEnabled())
@@ -436,7 +453,11 @@ namespace HeliAgilityCap
             if (__instance == null || __instance.rigidbody == null)
                 return;
             if (__instance.dead || !__instance.HasDriver())
+            {
+                if (RateStates.TryGetValue(__instance, out RateState idleState))
+                    idleState.initialized = false;
                 return;
+            }
             if (!Plugin.RateModeAppliesTo(__instance))
             {
                 if (NotMatchedLogged.Add(__instance.GetInstanceID()))
@@ -452,20 +473,47 @@ namespace HeliAgilityCap
 
             float burnScale = __instance.burning ? __instance.controlWhenBurning : 1f;
 
-
             Vector3 localOmega = new Vector3(
                 ActualRate(input.w, pCs * Mathf.Deg2Rad, pMr * Mathf.Deg2Rad, pExpo),
                 ActualRate(input.x, yCs * Mathf.Deg2Rad, yMr * Mathf.Deg2Rad, yExpo),
                 -ActualRate(input.z, rCs * Mathf.Deg2Rad, rMr * Mathf.Deg2Rad, rExpo)) * burnScale;
 
+            // 速率响应（限角加速度逼近目标；0 = 即时）
+            float spinUp = Plugin.RateSpinUpMap.Resolve(Plugin.RateSpinUpTime.Value, __instance.name, 0.05f);
+            RateState state = RateStates.GetOrCreateValue(__instance);
+            if (!state.initialized)
+            {
+                // 上车/换车：用当前实际角速度初始化，避免跳变
+                state.omega = __instance.transform.InverseTransformDirection(__instance.rigidbody.angularVelocity);
+                state.initialized = true;
+            }
+
+            if (spinUp <= 0.0001f)
+            {
+                state.omega = localOmega;
+            }
+            else
+            {
+                float dt = Time.fixedDeltaTime;
+                Vector3 delta = localOmega - state.omega;
+                float maxPitch = Mathf.Max(pMr, 0.01f) * Mathf.Deg2Rad / spinUp * dt;
+                float maxYaw = Mathf.Max(yMr, 0.01f) * Mathf.Deg2Rad / spinUp * dt;
+                float maxRoll = Mathf.Max(rMr, 0.01f) * Mathf.Deg2Rad / spinUp * dt;
+                state.omega += new Vector3(
+                    Mathf.Clamp(delta.x, -maxPitch, maxPitch),
+                    Mathf.Clamp(delta.y, -maxYaw, maxYaw),
+                    Mathf.Clamp(delta.z, -maxRoll, maxRoll));
+            }
+
+            Vector3 applied = state.omega;
+
             float damp = 1f + __instance.rigidbody.angularDrag * Time.fixedDeltaTime;
 
-
-            __instance.rigidbody.maxAngularVelocity = Mathf.Max(localOmega.magnitude * damp + 1f, 2f);
+            __instance.rigidbody.maxAngularVelocity = Mathf.Max(Mathf.Max(applied.magnitude, localOmega.magnitude) * damp + 1f, 2f);
 
             __instance.manouverability = 0f;
 
-            __instance.rigidbody.angularVelocity = __instance.transform.rotation * (localOmega * damp);
+            __instance.rigidbody.angularVelocity = __instance.transform.rotation * (applied * damp);
 
             if (AppliedLogged.Add(__instance.GetInstanceID()))
                 Plugin.Log?.LogInfo("RateMode 已生效：" + (__instance.name ?? "?") +
