@@ -12,6 +12,7 @@ English | [中文 ↓](#ravenfield-爆改穿越机模拟器插件)
 
 - Currently configurable parameters include:
   - Rate curves (betaflight Actual model)
+  - Attitude Change Response Speed (Simulated PID Response)
   - Thrust-to-weight ratio
   - Propeller pitch
   - Throttle response (spool-up/spool-down)
@@ -58,6 +59,7 @@ English | [中文 ↓](#ravenfield-爆改穿越机模拟器插件)
 
 - 目前，可以自定义的参数主要包括：
   - rate曲线(采用actual模型)
+  - 姿态改变响应速度(模拟PID响应)
   - 推重比
   - 螺旋桨螺距
   - 油门加减速响应
