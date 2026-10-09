@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <AssemblyName>HeliAgilityCap</AssemblyName>
-    <Version>1.0.0</Version>
+    <Version>1.9.0</Version>
     <LangVersion>latest</LangVersion>
 
     <!-- 改成你自己的 Ravenfield 安装目录：
@@ -43,12 +43,6 @@
       <HintPath>$(ManagedDir)\UnityEngine.PhysicsModule.dll</HintPath>
       <Private>false</Private>
     </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <!-- 排除归档的旧版本（v1 文件夹），避免与其源码重复编译 -->
-    <Compile Remove="v1\**" />
-    <None Remove="v1\**" />
   </ItemGroup>
 
 </Project>
