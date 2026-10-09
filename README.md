@@ -20,13 +20,13 @@ English | [中文 ↓](#ravenfield-爆改穿越机模拟器插件)
   - Level-flight lift bonus
   - Ground-effect lift bonus
 
-// The config file is at `Ravenfield\BepInEx\config\local.ravenfield.heliagilitycap.cfg` and is generated automatically on first launch.
+// The config file is at `Ravenfield\BepInEx\config\local.ravenfield.heliagilitycap.cfg` and is generated automatically on first launch. And....I am very sorry that the parameter comments in the original configuration file are not provided in English. I will attach the English version of the configuration file to this project (named local.ravenfield.heliagilitycap.cfg).
 
 ## Requirements
 
 - Game: Ravenfield (Steam version, Windows. Untested on iOS.)
 - Prerequisite: BepInEx — download: [github.com/BepInEx/BepInEx/releases](https://github.com/BepInEx/BepInEx/releases)
-I apologize that the parameter comments in the original configuration file are not provided in English. I will include the English version of the configuration file description at the end of this README file.
+
 
 ## Installation
 
@@ -46,107 +46,6 @@ I apologize that the parameter comments in the original configuration file are n
 
 4. Go fly. If it doesn't feel right, tune the parameters in the config file.
 //The default rate curves, or roll sensitivity parameters, are designed for professional RC transmitters used in model aircraft. For players using gamepads with lower precision, these settings may be difficult to adapt to. You can try modifying the Roll/Yaw/Pitch Rates in the configuration file to 270, 270, 0.1. If you find it hard to control altitude or hover steadily, you can reduce the RotorForce value.
-
-## English version of the configuration file:
-
-[General]
-
-## Max angular velocity for helicopter-type vehicles (rad/s). Vanilla = 1.5 (~86°/s)    // for vehicles that still use vanilla controls
-# Setting type: Single
-# Default value: 10
-MaxAngularVelocity = 10
-
-## Effect scope: all = all helicopters; player = only player-driven ones; names = vehicles whose name contains an entry in the Names list.
-# Setting type: String
-# Default value: names
-Mode = names
-
-## Takes effect when Mode=names. Comma-separated, case-insensitive.
-# Setting type: String
-# Default value: UFO,FPV
-Names = UFO,FPV
-
-## FPV-style attitude control mode: off = not applied (stick-based control stays as is); actual (or on) = rotation becomes "stick maps directly to target angular velocity" (Betaflight Actual curve). Once it takes over, this vehicle's manouverability, m_AngularDrag and the 1.5 rad/s angular-velocity cap no longer apply.
-# Setting type: String
-# Default value: on
-RateMode = on
-
-## Which vehicles RateMode applies to: matches if the vehicle name contains any of the listed words. Comma-separated, case-insensitive. Empty = applies to all helicopters.
-# Setting type: String
-# Default value: FPV
-RateNames = FPV
-
-## Roll axis Actual parameters. Format: center sensitivity (deg/s), max rate (deg/s), expo (0~1).
-# Setting type: String
-# Default value: 270,500,0.1
-RollRates = 270,500,0.1
-
-## Pitch axis Actual parameters. Same format as above.
-# Setting type: String
-# Default value: 270,500,0.1
-PitchRates = 270,500,0.1
-
-## Yaw axis Actual parameters. Same format as above.
-# Setting type: String
-# Default value: 270,490,0.0
-YawRates = 270,490,0.0
-
-## Attitude rate response: time (seconds) to ramp from 0 to the full-stick rate — both spin-up on stick input and braking on stick release take this long, after which the rate is held. 0 = instant response. Format: name:value,... — only listed vehicles get individual values; others use the default 0.05. e.g. "FPV:0.04,Mi-8:0.08".
-# Setting type: String
-# Default value: 0.05
-RateSpinUpTime = 0.05
-
-## Enable fixed-pitch propeller aerodynamics: off = not applied; on = stick maps to rotor RPM.
-# Setting type: String
-# Default value: on
-ThrustRpm = on
-
-## Which vehicles the fixed-pitch propeller model applies to: matches if the vehicle name contains any of the listed words. Comma-separated, case-insensitive. Empty = applies to all helicopters.
-# Setting type: String
-# Default value: FPV
-ThrustRpmNames = FPV
-
-## Pitch speed (m/s; mainly determines top speed): thrust drops to zero when axial velocity reaches this value. Format: name:value,name:value,... — only listed vehicles get individual values; unlisted (or -1) = use the default 80. e.g. "FPV:13,Mi-8:54".
-# Setting type: String
-# Default value: FPV:80
-Vpitch = FPV:80
-
-## Descent boost cap (default 1.25 when not set individually = at most +25% thrust while descending). Same format as above.
-# Setting type: String
-# Default value: FPV:1.25
-Fmax = FPV:1.25
-
-## Rotor speed response time (seconds; default 0.05 when not set individually ≈ 95% reached 0.15 s after stick input; 0 = instant). Same format as above.
-# Setting type: String
-# Default value: FPV:0.05
-RotorSpoolTime = FPV:0.05
-
-## Rotor static thrust at full RPM (overrides the vanilla vehicle property) (m/s²; hover rotor speed = √(9.81/value); must be > 9.81). Only listed vehicles are affected (value must be > 0). e.g. "FPV:125,Mi-8:150". Unlisted (or value ≤ 0) = use the vanilla vehicle property.
-# Setting type: String
-# Default value: FPV:100
-RotorForce = FPV:100
-
-## Vertical stick remapping (player only, and only while the current vehicle is in the new-aerodynamics list): empty (default) = auto (full); off = not applied; clamp = negative stick treated as 0; full = whole stick range mapped to 0~1 (stick all the way down = 0). An explicit value overrides auto.
-# Setting type: String
-# Default value: 
-VerticalMode = 
-
-## aerodynamicLift (overrides the vanilla vehicle property) (forward-flight lift coefficient: applies forward speed × this value along the body's up axis). Only listed vehicles are affected. e.g. "FPV:0.05,Mi-8:0.01" (value 0 = forward-flight lift removed for that vehicle). Unlisted (or -1) = leave all vehicles untouched (use the file value).
-# Setting type: String
-# Default value: FPV:0.01
-AerodynamicLift = FPV:0.01
-
-## groundEffectAcceleration (overrides the vanilla vehicle property) (ground-effect acceleration cap; the closer to the ground, the stronger the thrust). Only listed vehicles are affected. e.g. "FPV:0" (value 0 = disable ground effect). Unlisted (or -1) = leave all vehicles untouched (use the file value).
-# Setting type: String
-# Default value: FPV:0
-GroundEffectAcceleration = FPV:0
-
-## Linear air drag (overrides the vanilla vehicle property) (linear air drag, 1/s). Only listed vehicles are affected. e.g. "FPV:0.05,Mi-8:0.02". Unlisted (or -1) = leave all vehicles untouched (use the file value).
-# Setting type: String
-# Default value: FPV:0.02
-Drag = FPV:0.02
-
-
 ---
 
 [↑ English](#ravenfield-fpv-drone-simulator-plugin)
