@@ -30,7 +30,7 @@ English | [中文 ↓](#ravenfield-爆改穿越机模拟器插件)
 
 ## Installation
 
-1. Install BepInEx: download it and extract it into your Ravenfield root folder (the folder containing Ravenfield.exe, usually `...\steamapps\common\Ravenfield`). Launch the game once so it generates the `BepInEx\` folder structure.
+1. Download and extract the archive, then copy the BepInEx folder, winhttp.dll, and doorstop_config.ini into your Ravenfield root directory. (the folder containing Ravenfield.exe, usually `...\steamapps\common\Ravenfield`). Launch the game once so it generates the `BepInEx\` folder structure.
 2. Download `HeliAgilityCap.dll` from this project and place it in `Ravenfield\BepInEx\plugins\`.
 3. Launch the game — if all went well, the config file will be generated at `Ravenfield\BepInEx\config\local.ravenfield.heliagilitycap.cfg`.
 
@@ -77,7 +77,7 @@ English | [中文 ↓](#ravenfield-爆改穿越机模拟器插件)
 
 ## 安装
 
-1. 安装 BepInEx：下载后解压到 Ravenfield 游戏根目录（Ravenfield.exe 所在文件夹，通常是 `...\steamapps\common\Ravenfield`），先启动一次游戏，让它生成 `BepInEx\` 目录结构。
+1. 安装 BepInEx：下载后解压，把其中的BepInEx文件夹、winhttp.dll、doorstop_config.ini复制到 Ravenfield 游戏根目录（Ravenfield.exe 所在文件夹，通常是 `...\steamapps\common\Ravenfield`），先启动一次游戏，让它生成 `BepInEx\` 目录结构。
 2. 下载此项目中的 `HeliAgilityCap.dll`，将其放入 `Ravenfield\BepInEx\plugins\`。
 3. 启动游戏后 —— 如果正常的话，配置文件会自动生成在 `Ravenfield\BepInEx\config\local.ravenfield.heliagilitycap.cfg`。
 
