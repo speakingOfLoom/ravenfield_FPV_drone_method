@@ -38,7 +38,7 @@ English | [中文 ↓](#ravenfield-爆改穿越机模拟器插件)
 
 1. In-game, go to OPTION → INPUT, tick **Allow Joystick Binds** at the top, and adjust the **Joystick Deadzone**. For a normal RC transmitter, just set it to 0.01.
 2. Scroll down to the helicopter key bindings (**Heli Throttle Up/Down**) and bind each channel. If binding fails, your transmitter may not be supported — you can use an input wrapper such as x360ce (download: [www.x360ce.com](https://www.x360ce.com)) to map your inputs to an Xbox controller. (It works for other games too.)
-3. Find a helicopter in-game that you want to convert into an FPV drone and fly it. (You can choose which vehicles use the FPV logic in the config file — just put the vehicle's full name, or part of it, into the `Names` and `RateNames` fields.)
+3. Find a helicopter in-game that you want to convert into an FPV drone and fly it. (You can choose which vehicles use the FPV logic in the config file — just put the vehicle's full name, or part of it, into the `RateNames` and `ThrustRpmNames` fields.)
 
    // By default, any helicopter-type vehicle whose name contains "FPV" uses the FPV logic. Recommended: the FPV kamikaze drones [PG-7v, OG-7v](https://steamcommunity.com/sharedfiles/filedetails/?id=3701263254)
 
@@ -85,7 +85,7 @@ English | [中文 ↓](#ravenfield-爆改穿越机模拟器插件)
 
 1. 进入游戏后，在 OPTION-INPUT 界面，勾选顶部的 **Allow Joystick Binds**，调整 **Joystick Deadzone** 中央死区，正常的航模手柄直接拉到 0.01 就行
 2. 下拉到直升机相关键位设置(**Heli Throttle Up/Down**)，绑定各个通道。如果绑定失败的话可能是此航模遥控不支持，可以去下个输入转换器，比如 x360ce(下载地址：[www.x360ce.com](https://www.x360ce.com))，把输入映射成 xbox 手柄(这玩意也能拿去连其它游戏)
-3. 去游戏里找个你选择爆改成穿越机的直升机上去开(配置文件中可以自己定义哪些启用穿越机逻辑，把此载具的名字/部分名字输入 `Names` 以及 `RateNames` 字段即可)
+3. 去游戏里找个你选择爆改成穿越机的直升机上去开(配置文件中可以自己定义哪些启用穿越机逻辑，把此载具的名字/部分名字输入 `RateNames` 以及 `ThrustRpmNames` 字段即可)
 
    //默认载具名字包含"FPV"的直升机类载具启用，推荐创意工坊中的 FPV kamikaze drones [PG-7v, OG-7v](https://steamcommunity.com/sharedfiles/filedetails/?id=3701263254)
 
@@ -95,4 +95,4 @@ English | [中文 ↓](#ravenfield-爆改穿越机模拟器插件)
 //默认的Rate curves或者说翻滚灵敏度参数是针对专业航模手柄的，对于精度较低的游戏手柄玩家来说可能难以适应，可以尝试去配置文件中把Roll/Yaw/Pitch Rates改成270,270,0.1。如果觉得难以控制高度/悬停，可以把RotorForce这一项调低
 ---
 
-//有个小问题，人机开被你爆改过的直升机貌似会鬼畜炸机。。。。如果有空我会把它改了的
+//有个小问题，人机开被你爆改过的直升机貌似会鬼畜。。。。如果有空我会把它改了的
